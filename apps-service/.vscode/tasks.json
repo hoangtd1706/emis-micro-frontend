@@ -1,0 +1,112 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "build",
+        "${workspaceFolder}/Apps.Api/Apps.Api.csproj",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary"
+      ],
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "publish",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "publish",
+        "${workspaceFolder}/Apps.Api/Apps.Api.csproj",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary"
+      ],
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "watch",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "watch",
+        "run",
+        "--project",
+        "${workspaceFolder}/Apps.Api/Apps.Api.csproj"
+      ],
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "type": "docker-build",
+      "label": "docker-build: debug",
+      "dependsOn": [
+        "build"
+      ],
+      "dockerBuild": {
+        "tag": "apps:dev",
+        "target": "base",
+        "dockerfile": "${workspaceFolder}/Apps.Api/Dockerfile",
+        "context": "${workspaceFolder}",
+        "pull": true
+      },
+      "netCore": {
+        "appProject": "${workspaceFolder}/Apps.Api/Apps.Api.csproj"
+      }
+    },
+    {
+      "type": "docker-build",
+      "label": "docker-build: release",
+      "dependsOn": [
+        "build"
+      ],
+      "dockerBuild": {
+        "tag": "appsservice:latest",
+        "dockerfile": "${workspaceFolder}/Apps.Api/Dockerfile",
+        "context": "${workspaceFolder}",
+        "platform": "linux/amd64",
+        "pull": true
+      },
+      "netCore": {
+        "appProject": "${workspaceFolder}/Apps.Api/Apps.Api.csproj"
+      }
+    },
+    {
+      "type": "docker-run",
+      "label": "docker-run: debug",
+      "dependsOn": [
+        "docker-build: debug"
+      ],
+      "dockerRun": {
+        "containerName": "apps",
+        "image": "apps:dev",
+        "ports": [
+          {
+            "containerPort": 80,
+            "hostPort": 5019
+          }
+        ],
+        "env": {
+          "TZ": "Asia/Ho_Chi_Minh",
+          "ASPNETCORE_ENVIRONMENT": "Development",
+        },
+        "network": "emis-app"
+      },
+      "netCore": {
+        "appProject": "${workspaceFolder}/Apps.Api/Apps.Api.csproj",
+        "enableDebugging": true
+      }
+    },
+    {
+      "type": "docker-run",
+      "label": "docker-run: release",
+      "dependsOn": [
+        "docker-build: release"
+      ],
+      "dockerRun": {},
+      "netCore": {
+        "appProject": "${workspaceFolder}/Apps.Api/Apps.Api.csproj"
+      }
+    }
+  ]
+}

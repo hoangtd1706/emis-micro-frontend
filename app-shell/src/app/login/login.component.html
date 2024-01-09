@@ -1,0 +1,17 @@
+<div class="login" *ngIf="!auth.isLoggedIn">
+  <div class="login__main">
+    <img class="login__main_logo" src="./../../assets/logo_305x60.png" alt="Ecoba" srcset="" />
+    <p class="login__main_title">{{ title }}</p>
+    <button class="login__button" (click)="auth.login()">
+      <img class="login__button_icon" src="./../../assets/microsoft_logo.png" alt="" />
+      <span class="login__button_text">+</span>
+      <img class="login__button_icon" src="./../../assets/ecoba_logo.png" alt="" />
+      <span class="login__button_text">Sign in with Microsoft</span>
+    </button>
+  </div>
+  <div class="box">
+    <div class="copyright">
+      <p>Copyright © {{ copyright }}</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+<div class="app__bar_wrap">
+  <div class="app__bar_main">
+    <a *ngFor="let app of auth.apps" [routerLink]="app.remoteName" [title]="app.appName" routerLinkActive="isActive">
+      <div class="app__bar_item">
+        <div class="app__item_avatar">
+          <img [src]="app.appIcon" [alt]="app.appName">
+        </div>
+        <div class="app__item_name">
+          {{app.appName}}
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="app__bar_account">
+    <div *ngIf="auth.account" class="app__account_avatar" (click)="logout()">
+      <img src="/assets/user.svg" [title]="auth.account.displayName" [alt]="auth.account.displayName">
+    </div>
+  </div>
+</div>

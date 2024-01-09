@@ -1,0 +1,15 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Docker .NET Launch",
+      "type": "docker",
+      "request": "launch",
+      "preLaunchTask": "docker-run: debug",
+      "containerName": "apps",
+      "netCore": {
+        "appProject": "${workspaceFolder}/Apps.Api/Apps.Api.csproj"
+      }
+    }
+  ]
+}

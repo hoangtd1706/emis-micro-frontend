@@ -1,0 +1,7 @@
+<div *ngIf="auth.isLoggedIn">
+  <ng-container #comp *ngFor="let item of tabs" [ngSwitch]="item.framework">
+    <app-react-wrapper *ngSwitchCase="'react'" [component]="item.component"></app-react-wrapper>
+    <app-vue-wrapper *ngSwitchCase="'vue'" [component]="item.component"></app-vue-wrapper>
+    <app-angular-wrapper *ngSwitchDefault [component]="item.component"></app-angular-wrapper>
+  </ng-container>
+</div>
