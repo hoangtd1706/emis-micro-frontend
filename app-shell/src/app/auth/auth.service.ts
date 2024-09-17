@@ -49,7 +49,7 @@ export class AuthService {
   }
 
   async getAppUser() {
-    if (this.account !== null) return;
+    // if (this.account !== null) return;
     try {
       const instance = axiosBuilder.getInstance(apiHostname);
       const res = await instance.get('/api/v1/i/account/me');

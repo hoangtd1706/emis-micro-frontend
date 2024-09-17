@@ -16,7 +16,7 @@ const Projects: FC = function () {
 
   const refresh = async () => {
     try {
-      setProjects(await projectService.getMyProjects());
+      // setProjects(await projectService.getMyProjects());
     } catch {
     } finally {
     }
@@ -29,7 +29,7 @@ const Projects: FC = function () {
 
   const checkIsMod = async () => {
     try {
-      setMod(await userService.checkModRolePermission());
+      // setMod(await userService.checkModRolePermission());
     } catch (error) {
       return false;
     }
