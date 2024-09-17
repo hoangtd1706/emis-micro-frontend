@@ -13,6 +13,7 @@ export class TabComponent {
 
   constructor(readonly auth: AuthService, readonly route: ActivatedRoute) {
     auth.getApps();
+    auth.getAppUser();
   }
 
   async ngAfterViewInit() {

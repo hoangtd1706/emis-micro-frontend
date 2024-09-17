@@ -1,14 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import * as auth0 from 'auth0-js';
-import axios from 'axios';
 import { apiHostname, azureAdConf } from 'src/config';
-import {
-  AppModelViewApi,
-  AxiosRes,
-  TokenType,
-  UserInfoRes,
-} from './auth.model';
+import { AppModelViewApi, UserInfoRes } from './auth.model';
 import axiosBuilder from '../axiosBuilder';
 
 (window as any).global = window;
@@ -29,7 +23,6 @@ export class AuthService {
   account: UserInfoRes | null = null;
 
   constructor(private router: Router) {
-    this.getAuthentication();
     if (this.isLoggedIn) {
       this.getApps();
       this.getAppUser();
@@ -67,38 +60,8 @@ export class AuthService {
     return res.data;
   }
 
-  getAuthentication() {
-    this.isAuthenticated =
-      window.localStorage.getItem('refresh_item') !== null ? true : false;
-  }
-
-  async handleLoginCallback(code: string) {
-    try {
-      const res = await this.getAccessToken(code);
-      this._setSessionLogin();
-      sessionStorage.setItem('access_token', res.data.access_token);
-      localStorage.setItem('refresh_token', res.data.refresh_token);
-      this.getAppUser();
-    } catch {
-      sessionStorage.removeItem('access_token');
-      localStorage.removeItem('refresh_token');
-    } finally {
-      this.router.navigate(['/']);
-    }
-  }
-
-  private getAccessToken = (code: string): Promise<AxiosRes<TokenType>> => {
-    return axios.post(`${apiHostname}api/v1/i/token/access-token`, {
-      authCode: code,
-    });
-  };
-
   private _setApps(_apps: AppModelViewApi[]) {
     this.apps = _apps;
-  }
-
-  private _setSessionLogin() {
-    this.isAuthenticated = true;
   }
 
   get isLoggedIn(): boolean {
