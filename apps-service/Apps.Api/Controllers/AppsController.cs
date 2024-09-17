@@ -25,7 +25,7 @@ public class AppsController : ControllerBase
             AppPath = model.RemoteName,
             RemoteName = model.RemoteName,
             RemoteEntry = model.RemoteEntry,
-            AppExposedModule = "ReactAppLoader",
+            AppExposedModule = model.AppExposedModule,
             AppIcon = model.AppIcon,
             Order = model.Order
         };
