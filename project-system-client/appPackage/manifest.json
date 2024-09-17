@@ -1,0 +1,22 @@
+{
+    "$schema": "",
+    "manifestVersion": "",
+    "version": "1.0.0",
+    "id": "",
+    "developer": {
+        "name": "",
+        "websiteUrl": ""
+    },
+    "icons": {
+        "color": "",
+        "outline": ""
+    },
+    "name": {
+        "short": "",
+        "full": ""
+    },
+    "description": {
+        "short": "",
+        "full": ""
+    }
+}

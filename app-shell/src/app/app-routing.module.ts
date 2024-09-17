@@ -1,23 +1,29 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from './auth/auth.guard';
-import { CallbackComponent } from './callback/callback.component';
-import { MainComponent } from './main/main.component';
+import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
+import { AuthGuard } from "./auth/auth.guard";
+import { CallbackComponent } from "./callback/callback.component";
+import { MainComponent } from "./main/main.component";
+import { LoginComponent } from "./login/login.component";
 
 const routes: Routes = [
   {
-    path: 'callback',
+    path: "callback",
     component: CallbackComponent,
   },
   {
-    path: ':id',
-    component: MainComponent,
-    canActivate: [AuthGuard],
-    pathMatch: 'full',
+    path: "login",
+    component: LoginComponent,
   },
   {
-    path: '**',
-    redirectTo: '',
+    path: ":id",
+    component: MainComponent,
+    canActivate: [AuthGuard],
+    pathMatch: "full",
+  },
+  {
+    path: "**",
+    redirectTo: "",
+    canActivate: [AuthGuard],
   },
 ];
 

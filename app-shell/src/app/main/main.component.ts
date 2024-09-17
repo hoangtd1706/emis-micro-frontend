@@ -1,11 +1,10 @@
-import { Component, QueryList, ViewChildren } from '@angular/core';
-import { loadRemoteModule } from '../utils/federation-utils';
-import { ActivatedRoute } from '@angular/router';
-import { AuthService } from '../auth/auth.service';
+import { Component, QueryList, ViewChildren } from "@angular/core";
+import { loadRemoteModule } from "../utils/federation-utils";
+import { ActivatedRoute } from "@angular/router";
+import { AuthService } from "../auth/auth.service";
 
 @Component({
-  selector: 'app-main',
-  // templateUrl: './main.component.html',
+  selector: "app-main",
   template: `
     <ng-container #comp *ngFor="let item of tabs" [ngSwitch]="item.framework">
       <app-react-wrapper
@@ -22,10 +21,10 @@ import { AuthService } from '../auth/auth.service';
       ></app-angular-wrapper>
     </ng-container>
   `,
-  styleUrls: ['./main.component.scss'],
+  styleUrls: ["./main.component.scss"],
 })
 export class MainComponent {
-  @ViewChildren('comp') components!: QueryList<any>;
+  @ViewChildren("comp") components!: QueryList<any>;
   tabs: any = [];
 
   constructor(readonly auth: AuthService, private route: ActivatedRoute) {
@@ -36,7 +35,7 @@ export class MainComponent {
     if (this.auth.isLoggedIn) {
       if (this.auth.apps.length === 0) await this.auth.getApps();
       this.route.paramMap.subscribe((param) => {
-        this.changePath(param.get('id') as string);
+        this.changePath(param.get("id") as string);
       });
     }
   }
