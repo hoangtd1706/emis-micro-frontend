@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 import { AppModelViewApi } from '../auth/auth.model';
 
@@ -12,15 +12,17 @@ export class TabComponent {
   tabs: AppModelViewApi[] = [];
   open: boolean = false;
   appRoot = document.getElementById('app__root');
+  appName: string | undefined = undefined;
 
   constructor(readonly auth: AuthService, private router: Router) {
     auth.getApps();
     auth.getAppUser();
   }
 
-  onChangePath(path: string) {
+  onChangePath(app: AppModelViewApi) {
     this.toggleAppsPanel();
-    this.router.navigate([path]);
+    this.appName = app.appName;
+    this.router.navigate([app.remoteName]);
   }
 
   toggleAppsPanel() {

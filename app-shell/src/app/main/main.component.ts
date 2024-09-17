@@ -45,9 +45,14 @@ export class MainComponent {
     let app = this.auth.apps.find((x) => x.remoteName === path);
     this.tabs = [];
     if (app) {
-      loadRemoteModule(app).then((module) => {
-        this.tabs.push(module.default);
-      });
+      this.auth.setApp(app);
+      loadRemoteModule(app)
+        .then((module) => {
+          this.tabs.push(module.default);
+        })
+        .catch((err) => {
+          console.log('[App loader] Cannot load app', err);
+        });
     }
   }
 }

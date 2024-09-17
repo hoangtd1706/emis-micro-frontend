@@ -21,6 +21,7 @@ export class AuthService {
   isAuthenticated: boolean = false;
   apps: AppModelViewApi[] = [];
   account: UserInfoRes | null = null;
+  app: AppModelViewApi | undefined;
 
   constructor(private router: Router) {
     if (this.isLoggedIn) {
@@ -58,6 +59,11 @@ export class AuthService {
       console.log('Get account', error);
       this.logout();
     }
+  }
+
+  setApp(app: AppModelViewApi) {
+    console.log(app);
+    this.app = app;
   }
 
   private async getAppsAsync(): Promise<AppModelViewApi[]> {
