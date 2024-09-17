@@ -1,5 +1,4 @@
-<ng-container>
-  <app-login *ngIf="!authService.isLoggedIn"></app-login>
+<ng-container style="display: block;width: 100vw;height: 100vh;overflow: hidden;">
   <div id="app__root">
     <div id="app__bar" *ngIf="authService.isLoggedIn">
       <tab-app></tab-app>

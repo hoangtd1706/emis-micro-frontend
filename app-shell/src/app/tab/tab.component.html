@@ -1,7 +1,9 @@
-<div class="app__bar_wrap">
-  <div class="app__bar_main">
-    <a *ngFor="let app of auth.apps" [routerLink]="app.remoteName" [title]="app.appName" routerLinkActive="isActive">
-      <div class="app__bar_item">
+<div id="apps_panel">
+  <div class="title">Ứng dụng</div>
+  <div class="app_list">
+    <!-- <a *ngFor="let app of auth.apps" [routerLink]="app.remoteName" [title]="app.appName"> -->
+    <a *ngFor="let app of auth.apps" [title]="app.appName" (click)="onChangePath(app)">
+      <div class="app__item">
         <div class="app__item_avatar">
           <img [src]="app.appIcon" [alt]="app.appName">
         </div>
@@ -10,6 +12,23 @@
         </div>
       </div>
     </a>
+  </div>
+</div>
+
+<div id="app__overlay" (click)="toggleAppsPanel()"></div>
+<div class="app__bar_wrap">
+  <div class="app__bar_icon" id="appMenu">
+    <img src="/assets/icon_bar.svg" alt="apps" (click)="toggleAppsPanel()">
+  </div>
+  <div class="app__bar_main">
+    <div class="app__bar_brand">Ecoba</div>
+    <div *ngIf="auth.app" class="app__bar_divider">|</div>
+    <div *ngIf="auth.app" class="app__view">
+      <div class="app__view_icon">
+        <img [src]="auth.app.appIcon" [alt]="auth.app.appName">
+      </div>
+      <div class="app__view_name">{{auth.app.appName}}</div>
+    </div>
   </div>
   <div class="app__bar_account">
     <div *ngIf="auth.account" class="app__account_avatar" (click)="logout()">

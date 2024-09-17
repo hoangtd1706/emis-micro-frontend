@@ -3,11 +3,16 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth/auth.guard';
 import { CallbackComponent } from './callback/callback.component';
 import { MainComponent } from './main/main.component';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
   {
     path: 'callback',
     component: CallbackComponent,
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
   },
   {
     path: ':id',
@@ -18,6 +23,7 @@ const routes: Routes = [
   {
     path: '**',
     redirectTo: '',
+    canActivate: [AuthGuard],
   },
 ];
 

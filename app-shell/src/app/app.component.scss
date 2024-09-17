@@ -4,6 +4,12 @@
   height: 100vh;
   flex-flow: row wrap;
   overflow: hidden;
+  transition: all 0.25s ease-in-out;
+
+  &.open__panel {
+    margin: 8px;
+    border-radius: 6px;
+  }
 
   #app__bar {
     display: block;
