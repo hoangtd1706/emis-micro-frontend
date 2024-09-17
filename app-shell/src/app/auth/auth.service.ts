@@ -33,7 +33,11 @@ export class AuthService {
     this.auth0.authorize();
   }
 
-  logout() {}
+  logout() {
+    window.localStorage.removeItem('refresh_token');
+    window.sessionStorage.removeItem('access_token');
+    window.location.reload();
+  }
 
   async getApps() {
     try {
@@ -45,19 +49,27 @@ export class AuthService {
   }
 
   async getAppUser() {
+    if (this.account !== null) return;
     try {
       const instance = axiosBuilder.getInstance(apiHostname);
       const res = await instance.get('/api/v1/i/account/me');
       this.account = res.data as UserInfoRes;
     } catch (error) {
       console.log('Get account', error);
+      this.logout();
     }
   }
 
   private async getAppsAsync(): Promise<AppModelViewApi[]> {
-    const instance = axiosBuilder.getInstance(apiHostname);
-    const res = await instance.get('/api/v1/ap/apps');
-    return res.data;
+    if (this.apps.length > 0) return this.apps;
+    try {
+      const instance = axiosBuilder.getInstance(apiHostname);
+      const res = await instance.get('/api/v1/ap/apps');
+      return res.data;
+    } catch (error) {
+      console.log('[Apps] Cannot get apps');
+    }
+    return [];
   }
 
   private _setApps(_apps: AppModelViewApi[]) {

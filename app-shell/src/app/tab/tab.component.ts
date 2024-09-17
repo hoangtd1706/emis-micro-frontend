@@ -23,8 +23,6 @@ export class TabComponent {
   }
 
   logout() {
-    window.localStorage.removeItem('refresh_token');
-    window.localStorage.removeItem('access_token');
-    window.location.reload();
+    this.auth.logout();
   }
 }
